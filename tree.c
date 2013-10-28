@@ -90,4 +90,7 @@ void main() {
     printf("层序:");
     inBlock(p, i);
     printf("\n");
+    int j = 0;
+    for (j; j < i; j++)
+        free(p[j]);
 }
