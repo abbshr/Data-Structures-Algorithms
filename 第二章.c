@@ -49,7 +49,7 @@ List* attach(int data, List* list)
 }
 
 //8
-
+操作步骤为：X S X X X S X S S S X X S X X S X X S S S S
 
 //15
 typedef struct Node
