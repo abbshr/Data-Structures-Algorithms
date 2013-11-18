@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Dijkstra(int** G, int* D, int row)
+void Dijkstra(int** G, int* D, int* P, int row)
 {
 	int i, w, j;
 	int* S = (int* )malloc(sizeof(int) * row);
@@ -9,6 +9,7 @@ void Dijkstra(int** G, int* D, int row)
 	{
 		*(S + i) = 0;
 		*(D + i) = *(*G + i);
+		*(P + i) = 0;
 	}
 	*S = 1;
 	for (i = 1; i < row; i++)
@@ -24,7 +25,11 @@ void Dijkstra(int** G, int* D, int row)
 		*(S + w)= 1;
 		for (j = 1; j < row; j++)
 			if (!*(S + j))
-				*(D + j) = *(D + j) > (*(D + w) + *(*(G + w) + j)) ? (*(D + w) + *(*(G + w) + j)) : *(D + j);
+				if (*(D + j) > (*(D + w) + *(*(G + w) + j)))
+				{
+					*(D + j) = *(D + w) + *(*(G + w) + j);
+					*(P + j) = w;
+				}
 	}
 }
 
@@ -59,10 +64,18 @@ int main()
 		i++;
 	}
 	int* D = (int* )malloc(sizeof(int) * row);
-	Dijkstra(G, D, row);
+	int* P = (int* )malloc(sizeof(int) * row);
+	Dijkstra(G, D, P, row);
 	for (i = 1; i < row; i++)
 	{
-		printf("%d\n", *(D + i));
+		printf("到达第%d个点, 路径为：", i);
+		j = i;
+		printf("%d ", j);
+		while (j) {
+			j = P[j];
+			printf("%d ", j);
+		}
+		printf(": %d\n", *(D + i));
 	}
 	return 0;
 }
