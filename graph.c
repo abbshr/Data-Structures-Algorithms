@@ -3,34 +3,34 @@
 
 void Dijkstra(int** G, int* D, int* P, int row)
 {
-	int i, w, j;
-	int* S = (int* )malloc(sizeof(int) * row);
-	for (i = 0; i < row; i++) 
-	{
-		*(S + i) = 0;
-		*(D + i) = *(*G + i);
-		*(P + i) = 0;
-	}
-	*S = 1;
-	for (i = 1; i < row; i++)
-	{
-		w = 1;
-		for (j = 1; j < row; j++)
-		{
-			if (*(S + j))
-				continue;
-			if (*(D + j) <= *(D + w))
-				w = j;
-		}
-		*(S + w)= 1;
-		for (j = 1; j < row; j++)
-			if (!*(S + j))
-				if (*(D + j) > (*(D + w) + *(*(G + w) + j)))
-				{
-					*(D + j) = *(D + w) + *(*(G + w) + j);
-					*(P + j) = w;
-				}
-	}
+    int i, w, j;
+    int* S = (int* )malloc(sizeof(int) * row);
+    for (i = 0; i < row; i++) 
+    {
+    	*(S + i) = 0;
+    	*(D + i) = *(*G + i);
+    	*(P + i) = 0;
+    }
+    *S = 1;
+    for (i = 1; i < row; i++)
+    {
+    	w = 1;
+    	for (j = 1; j < row; j++)
+    	{
+    		if (*(S + j))
+    			continue;
+    		if (*(D + j) <= *(D + w))
+    			w = j;
+    	}
+    	*(S + w)= 1;
+    	for (j = 1; j < row; j++)
+    		if (!*(S + j))
+    			if (*(D + j) > (*(D + w) + *(*(G + w) + j)))
+    			{
+    				*(D + j) = *(D + w) + *(*(G + w) + j);
+    				*(P + j) = w;
+    			}
+    }
 }
 
 int main()
